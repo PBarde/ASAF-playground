@@ -1,5 +1,3 @@
-'''This is the base abstraction for agents in pommerman.
-All agents should inherent from this class'''
 from .. import characters
 
 
@@ -24,8 +22,8 @@ class BaseAgent:
         """
         pass
 
-    def init_agent(self, id_, game_type):
-        self._character = self._character(id_, game_type)
+    def init_agent(self, id, game_type):
+        self._character = self._character(id, game_type)
 
     @staticmethod
     def has_user_input():
@@ -33,4 +31,3 @@ class BaseAgent:
 
     def shutdown(self):
         pass
-

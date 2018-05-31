@@ -1,5 +1,8 @@
 """Implementation of a simple deterministic agent using Docker."""
-
+import os 
+cwd = os.getcwd()
+import sys
+sys.path.append(cwd)
 from pommerman import agents
 from pommerman.runner import DockerAgentRunner
 
@@ -8,7 +11,9 @@ class MyAgent(DockerAgentRunner):
     '''An example Docker agent class'''
 
     def __init__(self):
-        self._agent = agents.SimpleAgent()
+        # self._agent = agents.SimpleAgent()
+        
+        self._agent = agents.state_agent_exploit.StateAgentExploit()
 
     def init_agent(self, id, game_type):
         return self._agent.init_agent(id, game_type)

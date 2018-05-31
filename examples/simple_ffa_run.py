@@ -1,4 +1,11 @@
+
 '''An example to show how to set up an pommerman game programmatically'''
+# =======
+# import os
+# cwd = os.getcwd()
+# import sys
+# sys.path.append(cwd)
+# >>>>>>> 2929e99... add agent47agent
 import pommerman
 from pommerman import agents
 
@@ -19,7 +26,8 @@ def main():
         # agents.RandomAgent(),
         # agents.DockerAgent("multiagentlearning/hakozakijunctions", port=12345),
         # agents.DockerAgent("multiagentlearning/eisenach", port=1000),
-        agents.DockerAgent("multiagentlearning/eisenach", port=1002),
+        # agents.DockerAgent("multiagentlearning/eisenach", port=1002),
+        agents.DockerAgent("pommerman/agent47agent", port=1008)
         # agents.DockerAgent("multiagentlearning/eisenach", port=48),
         # agents.DockerAgent("multiagentlearning/eisenach", port=15),
         # agents.DockerAgent("multiagentlearning/skynet955", port=12347),

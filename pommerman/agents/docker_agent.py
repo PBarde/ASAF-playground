@@ -13,7 +13,6 @@ from .. import characters
 
 class DockerAgent(BaseAgent):
     """The Docker Agent that Connects to a Docker container where the character runs."""
-
     def __init__(self,
                  docker_image,
                  port,
@@ -37,6 +36,7 @@ class DockerAgent(BaseAgent):
         self._timeout = 320
         self._container = None
         self._env_vars = env_vars or {}
+
         # Pass env variables starting with DOCKER_AGENT to the container.
         for key, value in os.environ.items():
             if not key.startswith("DOCKER_AGENT_"):
@@ -98,11 +98,11 @@ class DockerAgent(BaseAgent):
                 return True
             except requests.exceptions.ConnectionError as e:
                 print("ConnectionError: ", e)
-                backoff = min(max_backoff, backoff * 2)
+                backoff = min(max_backoff, backoff*2)
                 time.sleep(backoff)
             except requests.exceptions.HTTPError as e:
                 print("HTTPError: ", e)
-                backoff = min(max_backoff, backoff * 2)
+                backoff = min(max_backoff, backoff*2)
                 time.sleep(backoff)
             except docker.errors.APIError as e:
                 print("This is a Docker error. Please fix: ", e)
@@ -139,6 +139,7 @@ class DockerAgent(BaseAgent):
         except requests.exceptions.Timeout as e:
             print('Timeout!')
             # TODO: Fix this. It's ugly.
+
             num_actions = len(action_space.shape)
             if num_actions > 1:
                 return [0] * num_actions
