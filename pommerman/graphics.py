@@ -23,14 +23,20 @@ except ImportError as error:
 
 try:
     from pyglet.gl import *
-    LAYER_BACKGROUND = pyglet.graphics.OrderedGroup(0)
-    LAYER_FOREGROUND = pyglet.graphics.OrderedGroup(1)
-    LAYER_TOP = pyglet.graphics.OrderedGroup(2)
-except pyglet.canvas.xlib.NoSuchDisplayException as error:
-    print("Import error NSDE! You will not be able to render --> %s" % error)
-except ImportError as error:
-    print("Import error GL! You will not be able to render --> %s" % error)
-
+    layer_background = pyglet.graphics.OrderedGroup(0)
+    layer_foreground = pyglet.graphics.OrderedGroup(1)
+    layer_top = pyglet.graphics.OrderedGroup(2)
+except pyglet.canvas.xlib.NoSuchDisplayException as e:
+    print("Import error! You will not be able to render --> %s" % e)
+# except ImportError as e:
+#     reraise(
+#         prefix="Error occured while running `from pyglet.gl import *`",
+#         suffix="Make sure you have OpenGL installed. On Ubuntu, you can run "
+#         "'apt-get install python-opengl'. If you're running on a server, you "
+#         "may need a virtual frame buffer; something like this should work: "
+#         "'xvfb-run -s \"-screen 0 1400x900x24\" python <your_script.py>'")
+except ImportError as e:
+    print("Import error GL! You will not be able to render --> %s" % e)
 from . import constants
 from . import utility
 
