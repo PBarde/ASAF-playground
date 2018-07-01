@@ -49,3 +49,13 @@ We strive for an open community. Please read over our [CODE OF CONDUCT](../maste
 # Citation
 
 If you use the Pommerman environment in your research, please cite us using the [bibtex file](../master/docs/pommerman.bib) in docs.
+=======
+### To use this code
+
+1. Follow docs/README.md to set up the environment
+2. $ cd pommerman/cli 
+3. if you want FFA mode:
+     $ python run_battle.py --agents=test::agents.StateAgentExploit,test::agents.SimpleAgent,test::agents.SimpleAgent,test::agents.SimpleAgent --config=PommeFFAFast-v0
+   if you want Team mode: 
+     $ python run_battle.py --agents=test::agents.StateAgentExploit,test::agents.SimpleAgent,test::agents.SimpleAgent,test::agents.SimpleAgent --config=PommeTeamFast-v0 --render
+     
