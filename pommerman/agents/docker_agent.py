@@ -34,7 +34,7 @@ class DockerAgent(BaseAgent):
         self._acknowledged = False  # Becomes True when the container is ready.
         self._server = server
         self._port = port
-        self._timeout = 32
+        self._timeout = 320
         self._container = None
         self._env_vars = env_vars or {}
         # Pass env variables starting with DOCKER_AGENT to the container.
@@ -114,7 +114,7 @@ class DockerAgent(BaseAgent):
         try:
             req = requests.post(
                 request_url,
-                timeout=0.5,
+                timeout=1.,
                 json={
                     "id": json.dumps(id, cls=utility.PommermanJSONEncoder),
                     "game_type": json.dumps(game_type, cls=utility.PommermanJSONEncoder)
@@ -128,7 +128,7 @@ class DockerAgent(BaseAgent):
         try:
             req = requests.post(
                 request_url,
-                timeout=0.15,
+                timeout=1.,
                 json={
                     "obs":
                     obs_serialized,
@@ -163,7 +163,7 @@ class DockerAgent(BaseAgent):
         try:
             req = requests.post(
                 request_url,
-                timeout=0.5,
+                timeout=1,
                 json={ })
         except requests.exceptions.Timeout as e:
             print('Timeout in shutdown()!')
