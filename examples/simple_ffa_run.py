@@ -27,7 +27,8 @@ def main():
         # agents.DockerAgent("multiagentlearning/hakozakijunctions", port=12345),
         # agents.DockerAgent("multiagentlearning/eisenach", port=1000),
         # agents.DockerAgent("multiagentlearning/eisenach", port=1002),
-        agents.DockerAgent("pommerman/agent47agent", port=1008)
+        agents.StateAgentExploit(),
+        agents.StateAgentExploit(),
         # agents.DockerAgent("multiagentlearning/eisenach", port=48),
         # agents.DockerAgent("multiagentlearning/eisenach", port=15),
         # agents.DockerAgent("multiagentlearning/skynet955", port=12347),
