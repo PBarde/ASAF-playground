@@ -1,5 +1,3 @@
-from collections import defaultdict
-import queue
 import random
 
 import numpy as np
@@ -16,8 +14,6 @@ class DummyAgent(BaseAgent):
         super(DummyAgent, self).__init__(*args, **kwargs)
 
     def act(self, obs, action_space):
-
-        #return 0
         return random.choice(action_space)
 
         my_position = obs['position']

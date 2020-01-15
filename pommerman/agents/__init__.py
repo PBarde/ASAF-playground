@@ -15,3 +15,4 @@ from .state_agent_explore import StateAgentExplore
 from .state_agent_standard import StateAgentStandard
 from .state_agent_bfs import StateAgentBFS
 from .dummy_agent import DummyAgent
+from .frozen_agent import FrozenAgent
