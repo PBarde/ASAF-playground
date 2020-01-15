@@ -201,10 +201,9 @@ class State():
                     # print("bombing while on bomb, skip")
                     continue
 
-                print(move)
                 temp_board, temp_curr_agent,temp_curr_bombs, temp_curr_items, temp_curr_flames, bombing_agents = self.advance_game_on_copy(move)
 
-                temp_obs = self.fm.get_observations(temp_board, temp_curr_agent, temp_curr_bombs, False, 11, self._game_mode, '')[self.self_agent_value - 10 ]
+                temp_obs = self.fm.get_observations(temp_board, temp_curr_agent, temp_curr_bombs, temp_curr_flames, False, 11, self._game_mode, '')[self.self_agent_value - 10 ]
                 temp_obs['ammo']= self._ammo
                 if move == 5:
                     bombing_agents[(self._my_position[0], self._my_position[1])] = self.self_agent_value - 10
@@ -274,7 +273,7 @@ class State():
         self.score -= 0.1
 
     def update_obs(self): 
-        self._obs = self.fm.get_observations(self._board, self.curr_agents, self.curr_bombs, False, 11, self._game_mode, '')[self.self_agent.value - 10 ]
+        self._obs = self.fm.get_observations(self._board, self.curr_agents, self.curr_bombs, self.curr_flames, False, 11, self._game_mode, '')[self.self_agent.value - 10 ]
         self._obs['enemies'] =  self._enemies
         
     def copy_from(self, source_node):
