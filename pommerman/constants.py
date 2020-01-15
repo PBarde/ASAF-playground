@@ -75,6 +75,7 @@ TEXT_COLOR = (170, 170, 170, 255)
 class Item(Enum):
     """The Items in the game.
 
+    - Passage is the equivalent of there is nothing on this spot
     When picked up:
       - ExtraBomb increments the agent's ammo by 1.
       - IncrRange increments the agent's blast strength by 1.
