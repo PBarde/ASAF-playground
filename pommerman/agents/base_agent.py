@@ -10,6 +10,9 @@ class BaseAgent:
         self._character = character
 
     def __getattr__(self, attr):
+        ## Aded this to account for weird recusion when pickle.load(agents) https://nedbatchelder.com/blog/201010/surprising_getattr_recursion.html
+        if attr.startswith("__"):
+            raise AttributeError(attr)
         return getattr(self._character, attr)
 
     def act(self, obs, action_space):
