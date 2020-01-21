@@ -135,7 +135,7 @@ class StateAgent(BaseAgent):
                     actions_space = [dir.value for dir in directions]
                     act =  self._evade_mcts.find_next_move(self.obs, actions_space, \
                                                            partial(win_if_arrive, self._closest_safe_positions), score_func_evade, self.bombing_agents)
-                    helper_func.agent_output(["139 check bomb", self._closest_safe_positions, act], True)
+                    helper_func.agent_output(["139 check bomb", self._closest_safe_positions, act], False)
                     act = act if type(act) == int else act.value
                     if act != -1:                        
                         return act
@@ -144,7 +144,7 @@ class StateAgent(BaseAgent):
                 self._prev_position = self.my_position
                 #print(self.board)
                 #print("Safe prev direction", direction)
-                print("146", direction.value)
+                # print("146", direction.value)
                 return direction.value 
             else:
                 self._closest_safe_positions = ()
@@ -157,7 +157,7 @@ class StateAgent(BaseAgent):
             Evd = self.EvaderAction()
         elif self.AttackerCondition():
             Att = self.AttackerAction()
-            print("ATTACK ACTION", Att)
+            # print("ATTACK ACTION", Att)
             if Att == 5 and not self._maybe_bomb(self.ammo, self.blast_strength, self.items, self.dist, self.my_position, self.board, self.prev, self.enemies, self.bombs):
                 Att = 0
             elif Att == -1:
@@ -166,13 +166,13 @@ class StateAgent(BaseAgent):
             Exp = self.ExplorerAction()
         if Evd is not -1:
             output = Evd
-            print("170 Evader ", output)
+            # print("170 Evader ", output)
         elif Att is not -1:
             output = Att
-            print("173 Attacker ", output)
+            # print("173 Attacker ", output)
         elif Exp is not -1:
             output = Exp
-            print("176 Explorer", output)
+            # print("176 Explorer", output)
 
         if type(output) != int:
             return output.value
@@ -294,7 +294,7 @@ class StateAgent(BaseAgent):
             self._no_safe_position_step = 1             
             rtn = random.choice(directions).value 
             helper_func.agent_output(["308", self._closest_safe_positions, \
-                                    constants.Action(rtn)], True)
+                                    constants.Action(rtn)], False)
             return rtn
 
             #MCTS to survive
@@ -307,7 +307,7 @@ class StateAgent(BaseAgent):
         helper_func.agent_output([self.board,"Unsafe Directions", self.unsafe_directions,\
                                   "next direction", direction, \
                                   "cloest safe place", self._closest_safe_positions, \
-                                  "No. 200"], True)
+                                  "No. 200"], False)
 
         #=======
         #If the next position to travel to is not safe, MCTS to survive

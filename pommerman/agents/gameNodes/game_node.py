@@ -71,10 +71,10 @@ class State():
                     # modify enemies
                     agent_idx = None
 
-                    print(copy_obs)
+                    # print(copy_obs)
                     for j, enemy in enumerate(copy_obs['enemies']):
                         enemyId = enemy if type(enemy) == int else enemy.value
-                        print(agent.agent_id + 10, enemyId)
+                        # print(agent.agent_id + 10, enemyId)
                         
                         if agent.agent_id + 10 == enemyId:
                             agent_idx = j 
