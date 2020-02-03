@@ -10,6 +10,7 @@ from . import utility
 from . import network
 
 gym.logger.set_level(40)
+# ALL possible env can be found in ./config !
 REGISTRY = None
 
 
