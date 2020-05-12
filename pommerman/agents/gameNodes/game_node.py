@@ -116,6 +116,7 @@ class State():
     def get_all_possible_states(self):
         list_of_states = []
         moves =  [constants.Action.Stop, constants.Action.Up, constants.Action.Down, constants.Action.Left, constants.Action.Right, 5]
+        board_shape1, board_shape2 = self._board.shape
         #check if move will land me on top of a bomb
         #unsafe_directions = self._directions_in_range_of_bomb(self._board, self._my_position, self.curr_bombs)
         #if unsafe_directions:
@@ -159,7 +160,7 @@ class State():
                                         continue
                             elif move == constants.Action.Down:
                                 if self._board[self._my_position[0]+1][self._my_position[1]] == 3:
-                                    if self._my_position[0] + 2 < 11:
+                                    if self._my_position[0] + 2 < board_shape1:
                                         if self._board[self._my_position[0]+2][self._my_position[1]] != 0:             
                                             # print("removing non passable move", move)
                                             continue
@@ -177,7 +178,7 @@ class State():
                                         continue
                             elif move == constants.Action.Right:
                                 if self._board[self._my_position[0]][self._my_position[1]+1] == 3:
-                                    if self._my_position[1] + 2 < 11:
+                                    if self._my_position[1] + 2 < board_shape2:
                                         if self._board[self._my_position[0]][self._my_position[1]+2] != 0:             
                                             # print("removing non passable move", move)
                                             continue
@@ -423,6 +424,8 @@ class State():
 
     def look_randomPlay(self):
         #MIGHT WANNA MAKE THIS SMART
+        board_shape1, board_shape2 = self._board.shape
+
         moves = [constants.Action.Stop, constants.Action.Up, constants.Action.Down, constants.Action.Left, constants.Action.Right]
         #prune unsafe moves, COMMENT FOR STATE AGENT
         #unsafe_directions = self._directions_in_range_of_bomb(self._board, self._my_position, self.curr_bombs)
@@ -479,7 +482,7 @@ class State():
                 #down
                 r = key[0]+1
                 c = key[1]
-                if (r < 11):
+                if (r < board_shape1):
                     if bomb_life_map[r][c] > 0 and (r,c) not in self.bombing_agents.keys():
                         keys_to_add.append( ((r,c), self.bombing_agents[key]) )
                 #left
@@ -491,7 +494,7 @@ class State():
                 #right
                 r = key[0]
                 c = key[1] + 1
-                if (c < 11):
+                if (c < board_shape2):
                     if bomb_life_map[r][c] > 0 and (r,c) not in self.bombing_agents.keys():
                         keys_to_add.append( ((r,c), self.bombing_agents[key]) )
                 keys_to_pop.append((key[0],key[1]))
@@ -504,6 +507,7 @@ class State():
 
     def non_randomPlay(self, move):
         self.advance_game(move)
+        board_shape1, board_shape2 = self._board
         
         # keys_to_pop = []
         # for key in self.bombing_agents.keys():
@@ -526,7 +530,7 @@ class State():
                 #down
                 r = key[0]+1
                 c = key[1]
-                if (r < 11):
+                if (r < board_shape1):
                     if bomb_life_map[r][c] > 0 and (r,c) not in self.bombing_agents.keys():
                         keys_to_add.append( ((r,c), self.bombing_agents[key]) )
                 #left
@@ -538,7 +542,7 @@ class State():
                 #right
                 r = key[0]
                 c = key[1] + 1
-                if (c < 11):
+                if (c < board_shape2):
                     if bomb_life_map[r][c] > 0 and (r,c) not in self.bombing_agents.keys():
                         keys_to_add.append( ((r,c), self.bombing_agents[key]) )
                 keys_to_pop.append((key[0],key[1]))

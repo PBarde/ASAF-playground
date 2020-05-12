@@ -29,12 +29,12 @@ import math
 class MCTSAgent(BaseAgent):
 	level = 0
 
-	def __init__(self, *args, **kwargs):
+	def __init__(self, board_shape, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 
 		self.bombing_agents = {}
 
-		self.copy_board = np.zeros((11,11))
+		self.copy_board = np.zeros(board_shape)
 		self.copy_walls = True
 
 	def find_next_move(self, obs, action_space, win_condition, score_func, bombing_agents):
@@ -225,7 +225,9 @@ class MCTSAgent(BaseAgent):
 			parent.score += score
 
 	def find_bombing_agents(self, bomb_life_map, board):
-		
+
+		board_shape1, board_shape2 = board.shape
+
 		#only add initial bombs
 		locations = np.where(bomb_life_map == constants.DEFAULT_BOMB_LIFE-1)
 		for r, c in zip(locations[0], locations[1]):
@@ -249,7 +251,7 @@ class MCTSAgent(BaseAgent):
 				#down
 				r = key[0]+1
 				c = key[1]
-				if (r < 11):
+				if (r < board_shape1):
 					if bomb_life_map[r][c] > 0 and (r,c) not in self.bombing_agents.keys():
 						keys_to_add.append( ((r,c), self.bombing_agents[key]) )
 				#left
@@ -261,7 +263,7 @@ class MCTSAgent(BaseAgent):
 				#right
 				r = key[0]
 				c = key[1] + 1
-				if (c < 11):
+				if (c < board_shape2):
 					if bomb_life_map[r][c] > 0 and (r,c) not in self.bombing_agents.keys():
 						keys_to_add.append( ((r,c), self.bombing_agents[key]) )
 				keys_to_pop.append((key[0],key[1]))

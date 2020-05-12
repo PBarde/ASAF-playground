@@ -31,7 +31,7 @@ class State(Enum):
 class StateAgent(BaseAgent):
     """This is a baseline agent. After you can beat it, submit your agent to compete."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, board_shape, *args, **kwargs):
         #super(SimpleAgent, self).__init__(*args, **kwargs)
         super().__init__(*args, **kwargs)
 
@@ -50,10 +50,10 @@ class StateAgent(BaseAgent):
         self._prev_position = []
 
         self._state = State.Explorer
-        self._visit_map = np.zeros((11,11))
+        self._visit_map = np.zeros(board_shape)
         self._target = None
         self.bombing_agents = {}
-        self._evade_mcts = mcts_inter_explore.MCTSAgentExplore()
+        self._evade_mcts = mcts_inter_explore.MCTSAgentExplore(board_shape)
 
     def act(self, obs, action_space):
         def convert_bombs(strength_map, life_map):
@@ -328,6 +328,8 @@ class StateAgent(BaseAgent):
         return direction
     
     def find_bombing_agents(self, bomb_life_map, board):
+        board_shape1, board_shape2 = board.shape
+
         #only add initial bombs
         locations = np.where(bomb_life_map == constants.DEFAULT_BOMB_LIFE-1)
         for r, c in zip(locations[0], locations[1]):
@@ -350,7 +352,7 @@ class StateAgent(BaseAgent):
                 #down
                 r = key[0]+1
                 c = key[1]
-                if (r < 11):
+                if (r < board_shape1):
                     if bomb_life_map[r][c] > 0 and (r,c) not in self.bombing_agents.keys():
                         keys_to_add.append( ((r,c), self.bombing_agents[key]) )
                 #left
@@ -362,7 +364,7 @@ class StateAgent(BaseAgent):
                 #right
                 r = key[0]
                 c = key[1] + 1
-                if (c < 11):
+                if (c < board_shape2):
                     if bomb_life_map[r][c] > 0 and (r,c) not in self.bombing_agents.keys():
                         keys_to_add.append( ((r,c), self.bombing_agents[key]) )
                 keys_to_pop.append((key[0],key[1]))
@@ -381,6 +383,8 @@ class StateAgent(BaseAgent):
     def _djikstra(board, my_position, bombs, enemies, depth=None, exclude=None):
         assert(depth is not None)
 
+        board_shape1, board_shape2 = board.shape
+
         if exclude is None:
             exclude = [constants.Item.Fog]
 
@@ -396,8 +400,8 @@ class StateAgent(BaseAgent):
         Q.put([0, my_position])
 
         mx, my = my_position
-        for r in range(max(0, mx - depth), min(11, mx + depth)):
-            for c in range(max(0, my - depth), min(11, my + depth)):
+        for r in range(max(0, mx - depth), min(board_shape1, mx + depth)):
+            for c in range(max(0, my - depth), min(board_shape2, my + depth)):
                 position = (r, c)
                 
                 if any([
