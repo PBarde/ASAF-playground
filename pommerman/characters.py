@@ -18,6 +18,14 @@ class Bomber(object):
         if agent_id is not None:
             self.set_agent_id(agent_id)
 
+    @property
+    def ammo(self):
+        return self._ammo
+
+    @ammo.setter
+    def ammo(self, value):
+        self._ammo = value
+
     def set_agent_id(self, agent_id):
         self.agent_id = agent_id
         if self._game_type == constants.GameType.FFA:

@@ -17,3 +17,4 @@ from .state_agent_bfs import StateAgentBFS
 from .dummy_agent import DummyAgent
 from .frozen_agent import FrozenAgent
 from .learnable_agent import LearnableAgent
+from .pacific_agents import RandomPacifist, SimplePacifist
