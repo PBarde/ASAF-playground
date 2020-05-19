@@ -4,6 +4,7 @@
 Display object. Pyglet only supports multiple Displays on Linux.
 """
 from datetime import datetime
+import time
 import math
 import os
 from random import randint
@@ -87,8 +88,9 @@ class Viewer(object):
         self.isopen = False
 
     def save(self, path):
+        time.sleep(0.1)
         now = datetime.now()
-        filename = now.strftime('%m-%d-%y_%H-%M-%S_') + str(
+        filename = now.strftime('%m-%d-%y_%H-%M-%S.%f_') + str(
             self._step) + '.png'
         path = os.path.join(path, filename)
         pyglet.image.get_buffer_manager().get_color_buffer().save(path)
